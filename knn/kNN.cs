@@ -25,7 +25,6 @@ namespace knn
         {
             double[,] train = ConvertToDoubleArray(this.trainData, numtich);
             double[,] test = ConvertToDoubleArray(this.testData, numtest);
-            //List<int> errorTrain = Training(train, 15, 1);
             List<int> errorTest = Testing(test, train, 15, 1);
             double accuracy = Math.Round((((double)numtest - (double)errorTest.Count()) / (double)numtest),3,MidpointRounding.AwayFromZero);
             listBox.Items.Add(errorTest.Count);
@@ -43,19 +42,6 @@ namespace knn
             }
             return result;
         }
-        List<int> Training(double[,] trainData, int numClasses, int k, int numrow = -1)
-        {
-            List<int> errorteach = new List<int>();
-            if (numrow == -1)
-            {
-
-            }
-            else
-            {
-
-            }
-            return errorteach;
-        }
         List<int> Testing(double[,] testData, double[,] trainData, int numClasses, int k, int numrow = -1)
         {
             List<int> errortest = new List<int>();
@@ -70,8 +56,6 @@ namespace knn
                         tmp[j] = testData[j,i];
                     }
                     int t = Classify(tmp, trainData, 15, 1);
-                    if (i == 980)
-                        l++;
                     if(t!=testData[21,i])
                         errortest.Add(i);
                 }
