@@ -39,7 +39,7 @@ namespace knn
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            KNN knn = new KNN(teaching, testing, numtich, numtest);
+            KNN knn = new KNN(teaching, testing, numtich, numtest, statisticValue);
             knn.Start(listBox1,Convert.ToInt32(numericUpDown1.Value));
         }
         /// <summary>
