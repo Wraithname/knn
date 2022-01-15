@@ -21,14 +21,14 @@ namespace knn
             this.numtest = numtest;
         }
 
-        public void Start(ListBox listBox)
+        public void Start(ListBox listBox, int k = 1)
         {
             double[,] train = ConvertToDoubleArray(this.trainData, numtich);
             double[,] test = ConvertToDoubleArray(this.testData, numtest);
-            List<int> errorTest = Testing(test, train, 15, 1);
-            double accuracy = Math.Round((((double)numtest - (double)errorTest.Count()) / (double)numtest),3,MidpointRounding.AwayFromZero);
-            listBox.Items.Add(errorTest.Count);
-            listBox.Items.Add(accuracy.ToString());
+            List<int> errorTest = Testing(test, train, 15, k);
+            double accuracy = Math.Round((((double)numtest - (double)errorTest.Count()) / (double)numtest), 2, MidpointRounding.AwayFromZero)*100;
+            listBox.Items.Add("Количество ошибок: " + errorTest.Count);
+            listBox.Items.Add("Точность: " + accuracy.ToString() + "%");
         }
         double[,] ConvertToDoubleArray(List<double[]> tmp, int count = 0)
         {
@@ -46,28 +46,36 @@ namespace knn
         {
             List<int> errortest = new List<int>();
             double[] tmp = new double[21];
-            int l = 0;
             if (numrow == -1)
             {
-                for(int i=0; i<1080; i++)
+                for (int i = 0; i < numtest; i++)
                 {
-                    for(int j=0; j<21; j++)
+                    for (int j = 0; j < 21; j++)
                     {
-                        tmp[j] = testData[j,i];
+                        tmp[j] = testData[j, i];
                     }
-                    int t = Classify(tmp, trainData, 15, 1);
-                    if(t!=testData[21,i])
+                    int t = Classify(tmp, trainData, 15, k);
+                    if (t != testData[21, i])
                         errortest.Add(i);
                 }
             }
             else
             {
-
+                for (int i = 0; i < numtest; i++)
+                {
+                    for (int j = 0; j < 21; j++)
+                    {
+                        tmp[j] = testData[j, i];
+                    }
+                    int t = Classify(tmp, trainData, 15, 1);
+                    if (t != testData[21, i])
+                        errortest.Add(i);
+                }
             }
             return errortest;
         }
         int Classify(double[] unknown, double[,] trainData, int numClasses, int k)
-        {   
+        {
             IndexAndDistance[] info = new IndexAndDistance[numtich];
             double[] data = new double[21];
             for (int i = 0; i < numtich; i++)

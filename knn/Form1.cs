@@ -8,12 +8,22 @@ namespace knn
 {
     public partial class Form1 : Form
     {
-        int statisticValue = 0, objectValue = 0, classesValue = 0;
-        int numclass = 0, numtich = 0, numtest = 0;
-        List<double[]> classes = new List<double[]>(), teaching = new List<double[]>(), testing = new List<double[]>();
+        #region Переменные, получаемые из файлов
+        int statisticValue, classesValue, objectValue, numclass, numtich, numtest;
+        List<double[]> classes,teaching, testing;
+        #endregion
         public Form1()
         {
             InitializeComponent();
+            statisticValue = 0;
+            numclass = 0;
+            numtich=0;
+            numtest= 0;
+            classesValue= 0;
+            objectValue= 0;
+            classes = new List<double[]>();
+            teaching = new List<double[]>();
+            testing = new List<double[]>();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -30,7 +40,7 @@ namespace knn
         private void button3_Click(object sender, EventArgs e)
         {
             KNN knn = new KNN(teaching, testing, numtich, numtest);
-            knn.Start(listBox1);
+            knn.Start(listBox1,Convert.ToInt32(numericUpDown1.Value));
         }
         /// <summary>
         /// Чтение CSV файла
