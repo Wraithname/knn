@@ -25,7 +25,11 @@ namespace knn
             teaching = new List<double[]>();
             testing = new List<double[]>();
         }
-
+        /// <summary>
+        /// Выбор папки с файлами
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog ofd = new FolderBrowserDialog())
@@ -37,6 +41,11 @@ namespace knn
                 }
             }
         }
+        /// <summary>
+        /// Запуск распознавания
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
             KNN knn = new KNN(teaching, testing, numtich, numtest, statisticValue);
